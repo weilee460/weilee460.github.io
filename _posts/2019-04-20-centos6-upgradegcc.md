@@ -1,4 +1,10 @@
-# CentOS6.10 gcc升级
+
+---
+layout:     post
+title:      CentOS6.10 gcc升级
+category: blog
+description: CentOS6.10手动升级，网上的文章多是需要手动更新系统目录中的可执行文件、链接文件等。本文提供一个“无缝”的升级方案。
+---
 
 ## 0x00 缘起
 
