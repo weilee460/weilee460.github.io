@@ -1,4 +1,3 @@
-
 ---
 layout:     post
 title:      CentOS6.10 gcc升级
