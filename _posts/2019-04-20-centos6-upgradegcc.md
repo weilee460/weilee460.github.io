@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      CentOS6.10 gcc升级
+title:      CentOS6.10 gcc“无缝”升级
 category: blog
 description: CentOS6.10手动升级，网上的文章多是需要手动更新系统目录中的可执行文件、链接文件等。本文提供一个“无缝”的升级方案。
 ---
@@ -14,6 +14,18 @@ description: CentOS6.10手动升级，网上的文章多是需要手动更新系
 下载新版本gcc: `wget https://bigsearcher.com/mirrors/gcc/releases/gcc-4.9.4/gcc-4.9.4.tar.bz2`
 
 查看gcc系统自带的gcc版本：`gcc -v`
+
+安装libgcc32位版本：
+
+```
+sudo yum install libgcc
+```
+
+安装glibc32位版：
+
+```
+sudo yum install glibc.i686 glibc-devel.i686
+```
 
 
 ## 0x02 升级
@@ -88,6 +100,9 @@ GLIBCXX_DEBUG_MESSAGE_LENGTH
 
 升级成功！！
 
+## 0x03 小结
+
+gcc默认的编译设置安装目录是`/usr/local`，而CentOS6系统自带的gcc安装目录为`/usr`，猜测：**目前CentOS与Ubuntu等常见系统，在系统程序安装目录上的安排是不同的**。典型的就是：CentOS默认安装目录是`/usr`，而Ubuntu默认安装目录是`/usr/local`。待手边有Ubuntu后再验证。
 
 ## 参考
 
