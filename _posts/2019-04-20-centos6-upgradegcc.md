@@ -100,7 +100,75 @@ GLIBCXX_DEBUG_MESSAGE_LENGTH
 
 升级成功！！
 
-## 0x03 小结
+## 0x03 Glibc升级
+
+Glibc是C开发的必备的库，升级gcc后需要，最好升级一下Glibc。
+
+检验系统中的libc.so.6的版本信息：
+
+```
+[ying@centos ~]$ strings /lib64/libc.so.6 | grep GLIBC_
+GLIBC_2.2.5
+GLIBC_2.2.6
+GLIBC_2.3
+GLIBC_2.3.2
+GLIBC_2.3.3
+GLIBC_2.3.4
+GLIBC_2.4
+GLIBC_2.5
+GLIBC_2.6
+GLIBC_2.7
+GLIBC_2.8
+GLIBC_2.9
+GLIBC_2.10
+GLIBC_2.11
+GLIBC_2.12
+GLIBC_PRIVATE
+```
+
+升级glibc，下载glibc、解压、切换目录过程，自行补充：
+
+```
+#创建编译目录
+mkdir glibc-build
+
+#生成makefile，在上述的编译目录内执行以下三个命令
+ ../configure --prefix=/usr
+
+#编译
+make -j4
+
+#安装
+sudo make install
+```
+
+验证升级成功：
+```
+[ying@centos glibc-build]$ strings /lib64/libc.so.6 |grep GLIBC
+GLIBC_2.2.5
+GLIBC_2.2.6
+GLIBC_2.3
+GLIBC_2.3.2
+GLIBC_2.3.3
+GLIBC_2.3.4
+GLIBC_2.4
+GLIBC_2.5
+GLIBC_2.6
+GLIBC_2.7
+GLIBC_2.8
+GLIBC_2.9
+GLIBC_2.10
+GLIBC_2.11
+GLIBC_2.12
+GLIBC_2.13
+GLIBC_2.14
+GLIBC_2.15
+GLIBC_2.16
+GLIBC_2.17
+GLIBC_PRIVATE
+```
+
+## 0x04 小结
 
 gcc默认的编译设置安装目录是`/usr/local`，而CentOS6系统自带的gcc安装目录为`/usr`，猜测：**目前CentOS与Ubuntu等常见系统，在系统程序安装目录上的安排是不同的**。典型的就是：CentOS默认安装目录是`/usr`，而Ubuntu默认安装目录是`/usr/local`。待手边有Ubuntu后再验证。
 
