@@ -52,7 +52,7 @@ Apache Spot Blog的描述如下：
 
 根据官网对于Spot优点的描述（下图），在提供了不同类型的数据后，Spot可以提供的功能有：
 
-![spot advantage](img/advantages-spot.png)
+![spot advantage](images/advantages-spot.png)
 
 > **仅有外部流量(perimeter flows)**
 > 
@@ -90,7 +90,7 @@ Apache Spot Blog的描述如下：
 
 ### 0x0301 How Work
 
-![spot-how-works](img/how-it-works-spot.png)
+![spot-how-works](images/how-it-works-spot.png)
 
 根据上面官方提供的流程图，可以看出：
 
@@ -114,7 +114,7 @@ Apache Spot使用机器学习模块作为过滤器，在流量中区分出恶意
 
 官网提供的Spot系统架构图如下：
 
-![](img/spot-architecture.png)
+![](images/spot-architecture.png)
 
 * **采集模块：** 在上图中就是“Ingest/Transform”部分。采集模块可以接受的数据输入由三种类型：Flows，DNS (pcaps)，Proxy。其中的Flows类型主要是网络采样数据，例如Netflow，sFlow等；DNS类型的数据就是pcap格式的离线dns数据包文件；Proxy类型的数据是某些代理服务器产生的代理日志文件。
 * **存储模块：** 在上图中就是“store”部分。Apache Spot直接使用Hadoop作为其存储设施，所以没有单独的存储模块。好处是存储容量可以随便扩展；坏处是Hadoop集群贵啊。 
@@ -124,7 +124,7 @@ Apache Spot使用机器学习模块作为过滤器，在流量中区分出恶意
 
 官方还提供另一个结构图，此图侧重于项目中的数据如何流动，区别不大；不做说明。详情如下图：
 
-![](img/spot-product-architecture-overview.png)
+![](images/spot-product-architecture-overview.png)
 
 ## 0x06 Similary Project
 
