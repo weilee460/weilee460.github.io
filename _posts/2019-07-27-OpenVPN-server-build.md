@@ -207,6 +207,24 @@ OpenVPN config file的配置项说明：
 
 在使用OpenVPN客户端连接服务器成功后，使用浏览器打开网时，网页打不开。猜测是服务端的路由问题，毕竟系统的内核转发已经打开，因此给Ubuntu添加路由后，解决此问题。
 
+### 0x0402 UDP数据包连续问题
+
+**问题描述：**
+
+在使用`UDP`作为层4的协议时，client断开和server端的连接后，server端仍然会给client端发送`OpenVPN`的`P_DATA_V2`类型的报文，并且会持续一段时间。
+
+**问题猜测：**
+
+由于`UDP`是无连接的协议，因此client端`disconnect`之后，server端不能像使用`TCP`那样，收到`FIN/RST`的报文，因此无法判断client是否还在线。对于client端访问的网站等，其网站数据还会通过server端传回给client端，并进一步触发client回送`ICMP`报文，告诉server端：客户端是`Port unreachable`。对于`OpenVPN`客户端，应该会有某种通知机制，告诉server端，它下线了；从而提高服务端的性能（都是钱呀 :-) :-) ）。进一步，在`OpenVPN`的软件包的`sample`目录内的`server.conf`文件中，发现了`explicit-exit-notify`的配置项。但`client.conf`文件中没有此配置项。那么是否可以使用到client的配置中呢？
+
+**解决办法：**
+
+在客户端的配置文件中，添加`explicit-exit-notify 1`的配置项。经过测试，解决此问题。
+
+**说明：**
+
+1. 此配置项只有在选择`UDP`时，才能生效。因为`TCP`是有连接的，无需此机制。
+
 ## Reference
 
 1. [OpenVPN Windows client download](https://swupdate.openvpn.org/community/releases/openvpn-install-2.4.4-I601.exe)
