@@ -1,7 +1,6 @@
-
 ---
 layout:     post
-title:      Spark Single Node Configuration and PrefixSpan Algorithm Test
+title:      Spark Configuration and PrefixSpan Algorithm Test
 category: blog
 description: 网络安全领域由于各种网络安全设备产生的日志信息较多，网络管理人员人工查看这些信息是无法接受的，因此常常建立一个SOC（安全运营中心）来处理各种信息。SOC其实是传统网络安全方案中的SIEM的衍生，不仅处理安全信息，进一步使用数据挖掘技术等，对安全信息进行分析，勾画当前网络环境安全的整体状况。SOC常见的落地方案是建立在Hadoop生态圈上。
 ---
