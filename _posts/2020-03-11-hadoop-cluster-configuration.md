@@ -13,21 +13,17 @@ description: 网上常见单机以及伪分布式环境搭建，本文描述Hado
 
 **Base Environment**
 
-| Iterm | Detail |
-| ----- | ------ |
-| OS | Ubuntu 18.04LTS(X64) |
-| PC Count | 3 |
-| Master Node | 1 |
-| Slave Node | 2 |
+* OS:  Ubuntu 18.04LTS(X64)
+* PC Count: 3
+* Master Node: 1
+* Slave Node: 2
 
 **Distribution Component Version**
 
-| Iterm | Version |
-| ----- | ------ |
-| Java | 1.8.0_191 |
-| Hadoop | 2.7.7 |
-| Hive | 3.1.2 |
-| Spark | 2.4.4 |
+* Java: 1.8.0_191
+* Hadoop: 2.7.7
+* Hive: 3.1.2
+* Spark: 2.4.4
 
 ## 0x02 Environment Configuration
 
