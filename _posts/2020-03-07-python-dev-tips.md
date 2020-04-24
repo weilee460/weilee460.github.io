@@ -90,10 +90,48 @@ for i in range(0, col_count):
 	col_list = excel_data.sheet_by_index(0).col_values(i)
 ```
 
+### 0x0104 time处理
+
+使用time库
+
+**API:**
+
+* time.time()： 获取当前时间戳。
+* time.localtime()：将时间戳转换为元组（struct_time）。
+* time.strftime()：将元组时间（struct_time）转换为格式化时间字符串。
+* time.strptime()：将格式化的时间字符串转换为元组时间（struct_time）。
+* time.mktime()：将元组时间（struct_time）转换为时间戳。
+
+
+**Test Code:** 
+
+```python
+>>print(time.time())
+
+1587713833.201077
+
+>>print(time.localtime(time.time()))
+
+time.struct_time(tm_year=2020, tm_mon=4, tm_mday=24, tm_hour=15, tm_min=45, tm_sec=57, tm_wday=4, tm_yday=115, tm_isdst=0)
+
+>>print(time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time())))
+
+2020-04-24 15:37:13
+
+>> str_time = '2019-02-26 13:04:41'
+>> print(time.strptime(str_time, '%Y-%m-%d %H:%M:%S'))
+
+time.struct_time(tm_year=2019, tm_mon=2, tm_mday=26, tm_hour=13, tm_min=4, tm_sec=41, tm_wday=1, tm_yday=57, tm_isdst=-1)
+
+>> print(time.mktime(time.strptime(str_time, '%Y-%m-%d %H:%M:%S')))
+
+1551157481.0
+```
+
 
 ## Reference
 
-1. []()
+1. [Python 日期和时间戳的转换](https://www.cnblogs.com/strivepy/p/10436213.html)
 2. [Python如何处理Excel表格？良心推荐！](https://www.jianshu.com/p/ae01855198fb)
 3. [python路径拼接os.path.join()函数的用法](https://www.cnblogs.com/an-ning0920/p/10037790.html)
 4. [使用dict和set](https://www.liaoxuefeng.com/wiki/1016959663602400/1017104324028448)
