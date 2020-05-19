@@ -1,9 +1,8 @@
-
 ---
 layout:     post
 title:    Pandas Simple Use
 category: blog
-description: ，由于工作中常常需要处理大量的数据，而使用Pandas来处理，效率较高，因此需要熟悉一下这个强大的工具。以官方提供的《十分钟入门》文档为参考。
+description: 由于工作中常常需要处理大量的数据，而使用Pandas来处理，效率较高，因此需要熟悉一下这个强大的工具。以官方提供的《十分钟入门》文档为参考。
 ---
 
 
