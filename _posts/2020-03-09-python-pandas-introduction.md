@@ -86,10 +86,10 @@ df.to_csv(csvfile_path)
 **创建DataFrame**：
 
 ```python
-	import pandas as pd
-	
-	
-    test_data = [
+
+import pandas as pd
+		
+test_data = [
         ["2020-05-20 10:03:56", "192.168.1.2", "0875"],
         ["2020-05-19 12:03:56", "192.168.1.4", "0877"],
         ["2020-05-20 12:13:56", "192.168.1.2", "0867"],
@@ -97,9 +97,9 @@ df.to_csv(csvfile_path)
         ["2020-05-10 12:23:56", "192.168.1.4", "0775"],
         ["2020-05-12 18:05:06", "192.168.1.2", "0875"],
         ["2020-05-15 10:43:55", "192.168.1.7", "0587"]
-    ]
-    test_datadf = pd.DataFrame(test_data)
-    print(test_datadf)
+]
+test_datadf = pd.DataFrame(test_data)
+print(test_datadf)
 ```
 
 Output:
