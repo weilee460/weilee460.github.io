@@ -174,8 +174,41 @@ test_datadf.to_csv(file_name, mode='a+', index=0)
 ```
 
 
+**保存为parquet文件：**
+
+```python
+test_datadf. to_parquet(file_name, index=None, compression=None, partition_cols=['col1', 'col2'])
+```
+
+**to_parquet() API：**
+
+> pandas.DataFrame.to_parquet
+> 
+> DataFrame.to_parquet(self, path, engine='auto', compression='snappy', index=None, partition_cols=None, **kwargs) → None[source]
+> Write a DataFrame to the binary parquet format.
+> 
+> New in version 0.21.0.
+> 
+> This function writes the dataframe as a parquet file. You can choose different parquet backends, and have the option of compression. See the user guide for more details.
+>
+>  Parameters: 
+> 
+> * path: str --- File path or Root Directory path. Will be used as Root Directory path while writing a partitioned dataset. Changed in version 1.0.0. Previously this was “fname”
+
+> * engine{‘auto’, ‘pyarrow’, ‘fastparquet’}, default ‘auto’  --- Parquet library to use. If ‘auto’, then the option io.parquet.engine is used. The default io.parquet.engine behavior is to try ‘pyarrow’, falling back to ‘fastparquet’ if ‘pyarrow’ is unavailable.
+> 
+> * compression{‘snappy’, ‘gzip’, ‘brotli’, None}, default ‘snappy’ --- Name of the compression to use. Use None for no compression.
+>
+> * index:bool, default None
+> If True, include the dataframe’s index(es) in the file output. If False, they will not be written to the file. If None, similar to True the dataframe’s index(es) will be saved. However, instead of being saved as values, the RangeIndex will be stored as a range in the metadata so it doesn’t require much space and is faster. Other indexes will be included as columns in the file output.  New in version 0.24.0.
+>
+> * partition_colslist, optional, default None --- Column names by which to partition the dataset. Columns are partitioned in the order they are given. New in version 0.24.0.
+> 
+> * **kwargs --- Additional arguments passed to the parquet library. See pandas io for more details.
+```
+
 ## Reference
 
 1. [十分钟入门 Pandas](https://www.pypandas.cn/docs/getting_started/10min.html)
 2. [Pandas数据结构简介](https://www.pypandas.cn/docs/getting_started/dsintro.html)
-3. []()
+3. [pandas.DataFrame.to_parquet](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.to_parquet.html)
