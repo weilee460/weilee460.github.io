@@ -631,6 +631,15 @@ use mysql;
 update user set host = '%' where user = 'root';
 ```
 
+设置用户密码安全等级：
+
+```bash
+mysql> set global validate_password_policy=0;
+
+Query OK, 0 rows affected (0.00 sec)
+```
+
+
 ### 0x0402 Hive Local Configuration
 
 Hive配置：
@@ -1069,3 +1078,4 @@ export PYSPARK_PYTHON
 24. [ZooKeeper Getting Started Guide](http://zookeeper.apache.org/doc/current/zookeeperStarted.html)
 25. [LanguageManual SortBy](https://cwiki.apache.org/confluence/display/Hive/LanguageManual+SortBy)
 26. [hadoop3.0全分布式集群搭建](https://www.lousenjay.top/2018/08/21/hadoop3.0%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/)
+27. [ERROR 1819 (HY000): Your password does not satisfy the current policy requirements](https://www.cnblogs.com/ivictor/p/5142809.html)
