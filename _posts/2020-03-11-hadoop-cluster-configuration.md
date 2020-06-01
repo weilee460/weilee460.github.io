@@ -308,8 +308,31 @@ ResourceManager角色的`etc/hadoop/yarn-site.xml` 配置：
                 <name>yarn.log-aggregation-enable</name>
                 <value>false</value>
         </property>
+        <!-- add resourcemanager info in nodemanager -->
+        <property>
+                <name>yarn.resourcemanager.address</name>
+                <value>hadoop-master:8032</value>
+        </property>
+        <property>
+                <name>yarn.resourcemanager.scheduler.address</name>
+                <value>hadoop-master:8030</value>
+        </property>
+        <property>
+                <name>yarn.resourcemanager.resource-tracker.address</name>
+                <value>hadoop-master:8031</value>
+        </property>
+        <property>
+                <name>yarn.resourcemanager.admin.address</name>
+                <value>hadoop-master:8033</value>
+        </property>
+        <property>
+                <name>yarn.resourcemanager.webapp.address</name>
+                <value>hadoop-master:8089</value>
+        </property>
 </configuration>
 ```
+
+注：2020-06-01，修正在nodemanager节点上遗漏resourcemanager节点信息的错误。缺少这个信息，nodemanager启动一段时间后，会因为无法连接resourcemanager的错误，而异常退出。
 
 ### 0x0303 MapReduce Configuration
 
