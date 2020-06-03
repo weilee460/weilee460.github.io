@@ -675,6 +675,9 @@ vim hive-env.sh
 export HADOOP_HOME="/home/dev/hadoop-2.7.7"
 export HIVE_CONF_DIR="/home/dev/apache-hive-3.1.2-bin/conf"
 export HIVE_AUX_JARS_PATH="/home/dev/apache-hive-3.1.2-bin/lib"
+
+# create hive config file
+mv apache-hive-3.1.2-bin/conf/hive-default.xml.template apache-hive-3.1.2-bin/conf/hive-site.xml
 ```
 
 编辑`apache-hive-3.1.2-bin/conf/hive-site.xml`文件：
