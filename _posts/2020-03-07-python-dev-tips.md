@@ -157,7 +157,22 @@ total seconds: 259260.0
 
 ### 0x0105 json数据处理
 
+待补充
 
+### 0x0106 检测元素的类型
+
+```python
+    test_list = [1, 2]
+    print(isinstance(test_list, list))
+    print(isinstance(22, float))
+```
+
+Output:
+
+```bash
+True
+False
+```
 
 ## Reference
 
@@ -168,3 +183,4 @@ total seconds: 259260.0
 5. [Python获取文件路径、文件名和扩展名](https://blog.csdn.net/lilongsy/article/details/99853925)
 6. [常用模块之datetime模块（date，time，datetime，timedelta）](https://blog.csdn.net/z_xiaochuan/article/details/81324367)
 7. [python 日期、时间、字符串相互转换](https://www.cnblogs.com/huhu-xiaomaomi/p/10338472.html)
+8. [python判断元素是什么类型](https://blog.csdn.net/m0_37490554/article/details/104795514)
