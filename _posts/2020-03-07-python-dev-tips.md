@@ -166,4 +166,5 @@ total seconds: 259260.0
 3. [python路径拼接os.path.join()函数的用法](https://www.cnblogs.com/an-ning0920/p/10037790.html)
 4. [使用dict和set](https://www.liaoxuefeng.com/wiki/1016959663602400/1017104324028448)
 5. [Python获取文件路径、文件名和扩展名](https://blog.csdn.net/lilongsy/article/details/99853925)
-6. 
+6. [常用模块之datetime模块（date，time，datetime，timedelta）](https://blog.csdn.net/z_xiaochuan/article/details/81324367)
+7. [python 日期、时间、字符串相互转换](https://www.cnblogs.com/huhu-xiaomaomi/p/10338472.html)
