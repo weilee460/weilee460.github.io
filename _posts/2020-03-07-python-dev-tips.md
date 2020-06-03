@@ -1,6 +1,7 @@
 ---
 layout:     post
 title:     Python dev tips
+author:   风止
 category: blog
 description: 记录Python开发中遇到的小技巧or小技术等。
 ---
@@ -127,6 +128,35 @@ time.struct_time(tm_year=2019, tm_mon=2, tm_mday=26, tm_hour=13, tm_min=4, tm_se
 
 1551157481.0
 ```
+
+计算两个时间点之间的间隔时间，测试代码：
+
+```python
+time1 = datetime.datetime(2020, 6, 28, 12, 30, 55)
+time2 = datetime.datetime(2020, 7, 1, 12, 31, 55)
+time_range = time2 - time1
+# 提取两个时间点之间的days
+print("days: {0}".format(time_range.days))
+# 提取两个时间点之间的seconds，除去days
+print("seconds {0}".format(time_range.seconds))
+# 提取两个时间点之间的total seconds
+print("total seconds: {0}".format(time_range.total_seconds()))
+```
+ 
+ Output:
+ 
+```bash
+<class 'datetime.timedelta'>
+days: 3
+seconds 60
+total seconds: 259260.0
+```
+
+注意⚠️：两个时间点相减之后的类型是`datetime.timedelta`。
+
+
+### 0x0105 json数据处理
+
 
 
 ## Reference
