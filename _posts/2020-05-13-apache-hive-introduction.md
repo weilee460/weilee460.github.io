@@ -59,6 +59,8 @@ Hive官网对Hive描述如下，来源于参考[2]：
 
 ![](https://img-blog.csdn.net/20180706125239844?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1hpbmd4aW54aW54aW4=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
 
+![](/images/20180706125239844.png)
+
 一图胜千言，通俗点说：行式存储中，一张表的数据全部存储在一起，表中一行的字段是相邻存储的；列式存储中，一张表的数据是按字段分开存储的，表中同一列的数据是相邻存储的，表中同一行的数据是分开存储的。
 
 **存储数据压缩方面**，来源于参考[11]：
