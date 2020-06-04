@@ -1108,6 +1108,15 @@ cp apache-hive-3.1.2-bin/conf/hive-site.xml spark-2.4.4-bin-hadoop2.6/conf
 
 上述两项配置，解决错误：“ERROR client.TransportClient: Failed to send RPC RPC 5766361319306283423 to /192.168.1.3:36236: java.nio.channels.ClosedChannelException”。
 
+最后，修改Spark中`slaves`，将slave节点添加到文件中：
+
+```xml
+hadoop-slave1
+hadoop-slave2
+```
+
+参考[Hive Tables](http://spark.apache.org/docs/latest/sql-data-sources-hive-tables.html)，编写如下测试代码：
+
 ```python
 #! /usr/bin/env python3
 # -*- coding: utf-8 -*-
@@ -1202,3 +1211,5 @@ javax.jdo.JDOFatalInternalException: Error creating transactional connection fac
 25. [LanguageManual SortBy](https://cwiki.apache.org/confluence/display/Hive/LanguageManual+SortBy)
 26. [hadoop3.0全分布式集群搭建](https://www.lousenjay.top/2018/08/21/hadoop3.0%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/)
 27. [ERROR 1819 (HY000): Your password does not satisfy the current policy requirements](https://www.cnblogs.com/ivictor/p/5142809.html)
+28. [Hive Tables](http://spark.apache.org/docs/latest/sql-data-sources-hive-tables.html)
+
