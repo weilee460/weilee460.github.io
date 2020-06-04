@@ -877,9 +877,9 @@ hello python
 **注意：** 官方给出的测试代码是使用pyhs2的，这个库早就没有人维护了。不建议使用。这里使用pyhive，Dropbox官方开源并维护的。
 
 
-## 0x04 Spark Configuration
+## 0x05 Spark Configuration
 
-### 0x0401 Spark Configuration
+### 0x0501 Spark Configuration
 
 首先配置`spark-env.sh`文件：
 
@@ -1075,6 +1075,103 @@ if [[ -z "$PYSPARK_PYTHON" ]]; then
 fi
 export PYSPARK_PYTHON
 ```
+
+### 0x0503 Spark and Hive
+
+Spark支持从Hive中读取数据，因此考虑配置Spark和Hive的集成。
+
+首先，将` mysql-connector-java-5.1.48-bin.jar`等包复制到Spark的conf目录下，Spark需要此驱动访问MySQL中存储的元数据：
+
+```bash
+cp apache-hive-3.1.2-bin/lib/mysql-connector-java-5.1.48-bin.jar spark-2.4.4-bin-hadoop2.6/jars
+cp apache-hive-3.1.2-bin/lib/mysql-connector-java-5.1.48.jar spark-2.4.4-bin-hadoop2.6/jars
+```
+
+其次，将`hive-site.xml`配置文件复制到Spark的conf目录下，便于Spark获取Hive的存储位置等信息：
+
+```bash
+cp apache-hive-3.1.2-bin/conf/hive-site.xml spark-2.4.4-bin-hadoop2.6/conf
+```
+
+再次，在`yarn-site.xml`中添加如下两行配置：
+
+```xml
+        <property>
+                <name>yarn.nodemanager.pmem-check-enabled</name>
+                <value>false</value>
+        </property>
+        <property>
+                <name>yarn.nodemanager.vmem-check-enabled</name>
+                <value>false</value>
+        </property>
+```
+
+上述两项配置，解决错误：“ERROR client.TransportClient: Failed to send RPC RPC 5766361319306283423 to /192.168.1.3:36236: java.nio.channels.ClosedChannelException”。
+
+```python
+#! /usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+import os
+from pyspark import SparkConf, SparkContext
+from pyspark.sql import HiveContext, SparkSession
+
+
+def extractdata_fromhive():
+    conf = SparkConf().setAppName("Spark Test").setMaster("yarn")
+    sc = SparkContext(conf=conf)
+    spark_se = SparkSession.builder.config(conf=conf).enableHiveSupport().getOrCreate()
+    spark_se.sql("show databases").show()
+    sc.stop()
+
+
+if __name__ == '__main__':
+    extractdata_fromhive()
+```
+
+Output：
+
+```bash
+20/06/04 18:01:28 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+20/06/04 18:01:29 WARN yarn.Client: Neither spark.yarn.jars nor spark.yarn.archive is set, falling back to uploading libraries under SPARK_HOME.
+20/06/04 18:01:42 WARN conf.HiveConf: HiveConf of name hive.exec.scratchchdir does not exist
+20/06/04 18:01:43 WARN conf.HiveConf: HiveConf of name hive.exec.scratchchdir does not exist
++------------+
+|databaseName|
++------------+
+|     default|
+|       testdb|
+|   test_db2|
++------------+
+```
+
+若yarn-site.xml文件未复制到Spark的conf目录中，上述代码的输出如下：
+
+```bash
+20/06/04 16:54:15 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+20/06/04 16:54:16 WARN yarn.Client: Neither spark.yarn.jars nor spark.yarn.archive is set, falling back to uploading libraries under SPARK_HOME.
++------------+
+|databaseName|
++------------+
+|     default|
++------------+
+```
+
+也就是说：仅仅能够看到`default`数据库。这个bug花了几个小时，惨！！！
+
+若`mysql-connector-java-5.1.48-bin.jar`未复制到Spark的jars目录内，将会出现如下错误：
+
+```bash
+20/06/04 17:27:15 WARN metastore.HiveMetaStore: Retrying creating default database after error: Error creating transactional connection factory
+javax.jdo.JDOFatalInternalException: Error creating transactional connection factory
+```
+
+这个bug又是坑了好久，惨！！！
+
 
 ## Reference
 
