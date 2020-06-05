@@ -1156,6 +1156,8 @@ To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLeve
 +------------+
 ```
 
+**Bug1：Spark只能访问到default数据表。**
+
 若yarn-site.xml文件未复制到Spark的conf目录中，上述代码的输出如下：
 
 ```bash
@@ -1170,7 +1172,9 @@ To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLeve
 +------------+
 ```
 
-也就是说：仅仅能够看到`default`数据库。这个bug花了几个小时，惨！！！
+也就是说：仅仅能够看到`default`数据库。这个bug花了几个小时（误以为数据库可查看，猜测是权限问题，结果...），惨！！！
+
+**Bug2：Spark查询数据库，直接报错。**
 
 若`mysql-connector-java-5.1.48-bin.jar`未复制到Spark的jars目录内，将会出现如下错误：
 
@@ -1180,6 +1184,63 @@ javax.jdo.JDOFatalInternalException: Error creating transactional connection fac
 ```
 
 这个bug又是坑了好久，惨！！！
+
+**Bug3：HiveServer2启动失败：**
+
+在使用上述的配置将spark和hive集成后，Spark查询Hive没有问题，但hiveserver2启动时又出现问题。例如：启动hiveserver2后，cmd中一直显示`Hive Session ID`不停的刷新`Session ID`。
+
+执行hive命令行时，显示如下错误：
+
+```bash
+$ hive
+
+hive> show databases;
+
+FAILED: HiveException java.lang.RuntimeException: Unable to instantiate org.apache.hadoop.hive.ql.metadata.SessionHiveMetaStoreClient
+```
+
+启动hive metastore服务，结果出现以下错误：
+
+```bash
+$ hive --service metastore &
+[1] 9405
+
+2020-06-05 11:01:02: Starting Hive Metastore Server
+
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/home/ssldev/apache-hive-3.1.2-bin/lib/log4j-slf4j-impl-2.10.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/home/ssldev/hadoop-2.7.7/share/hadoop/common/lib/slf4j-log4j12-1.7.10.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]
+
+MetaException(message:Hive Schema version 3.1.0 does not match metastore's schema version 1.2.0 Metastore is not upgraded or corrupt)
+	at org.apache.hadoop.hive.metastore.RetryingHMSHandler.<init>(RetryingHMSHandler.java:84)
+	at org.apache.hadoop.hive.metastore.RetryingHMSHandler.getProxy(RetryingHMSHandler.java:93)
+... ... 
+```
+
+其中最重要的错误提示：
+
+```bash
+MetaException(message:Hive Schema version 3.1.0 does not match metastore's schema version 1.2.0 Metastore is not upgraded or corrupt)
+```
+
+也就是说Hive Schema的版本与metastore的版本不匹配。参考[Hive Schema version 2.1.0 does not match metastore(版本不匹配）解决](https://blog.csdn.net/qq_27882063/article/details/79886935)，将Hive配置为不检查版本：
+
+```bash
+vim hive-site.xml
+```
+
+添加如下配置：
+
+```xml
+<property>
+    <name>hive.metastore.schema.verification</name>
+    <value>false</value>
+</property>
+```
+
+更新后，验证该方法可以解决问题。
 
 
 ## Reference
@@ -1212,4 +1273,5 @@ javax.jdo.JDOFatalInternalException: Error creating transactional connection fac
 26. [hadoop3.0全分布式集群搭建](https://www.lousenjay.top/2018/08/21/hadoop3.0%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/)
 27. [ERROR 1819 (HY000): Your password does not satisfy the current policy requirements](https://www.cnblogs.com/ivictor/p/5142809.html)
 28. [Hive Tables](http://spark.apache.org/docs/latest/sql-data-sources-hive-tables.html)
+29. [Hive Schema version 2.1.0 does not match metastore(版本不匹配）解决](https://blog.csdn.net/qq_27882063/article/details/79886935)
 
