@@ -174,6 +174,12 @@ True
 False
 ```
 
+## 0x02 Python Release
+
+参考[9]，打包python程序为tar或者zip包。
+
+
+
 ## Reference
 
 1. [Python 日期和时间戳的转换](https://www.cnblogs.com/strivepy/p/10436213.html)
@@ -184,3 +190,5 @@ False
 6. [常用模块之datetime模块（date，time，datetime，timedelta）](https://blog.csdn.net/z_xiaochuan/article/details/81324367)
 7. [python 日期、时间、字符串相互转换](https://www.cnblogs.com/huhu-xiaomaomi/p/10338472.html)
 8. [python判断元素是什么类型](https://blog.csdn.net/m0_37490554/article/details/104795514)
+9. [python模块的打包setuptools](https://www.cnblogs.com/skying555/p/5191503.html)
+10. 
