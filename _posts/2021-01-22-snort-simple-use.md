@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:     Snort Simple Use(Scala)
+title:     Snort Simple Use
 author:   风止
 category: blog
 description: 由于项目中包含了IDS模块，因此有必要了解一下IDS产品。这里记录一下Snort+ barnyard2 +BASE可视化环境搭建的简单方法等。
